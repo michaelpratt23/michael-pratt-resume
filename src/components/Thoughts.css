@@ -1,0 +1,164 @@
+.thoughts {
+  padding: 160px 0;
+  min-height: 100vh;
+  background: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  position: relative;
+}
+
+.thoughts::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.1) 50%, transparent 100%);
+}
+
+.thoughts-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.thoughts-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  margin-bottom: 80px;
+  letter-spacing: -1px;
+  color: #000;
+  line-height: 1.2;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.tweets-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.tweet-card {
+  padding: 48px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.tweet-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tweet-card:hover {
+  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+}
+
+.tweet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+.tweet-author {
+  font-weight: 400;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.tweet-date {
+  font-weight: 300;
+}
+
+.tweet-text {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: #1a1a1a;
+}
+
+.thoughts-loading,
+.no-tweets {
+  font-size: 18px;
+  font-weight: 300;
+  color: #666;
+  text-align: center;
+  padding: 80px 0;
+}
+
+.thoughts-note {
+  margin-top: 100px;
+  padding-top: 60px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 14px;
+  font-weight: 300;
+  color: #999;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .thoughts {
+    padding: 100px 0;
+  }
+
+  .thoughts-container {
+    padding: 0 32px;
+  }
+
+  .thoughts-title {
+    font-size: 32px;
+    margin-bottom: 60px;
+  }
+
+  .tweet-card {
+    padding: 32px;
+  }
+
+  .tweet-text {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .thoughts {
+    padding: 80px 0;
+  }
+
+  .thoughts-container {
+    padding: 0 24px;
+  }
+
+  .thoughts-title {
+    font-size: 28px;
+    margin-bottom: 48px;
+  }
+
+  .tweet-card {
+    padding: 24px;
+  }
+
+  .tweet-text {
+    font-size: 16px;
+  }
+}
+

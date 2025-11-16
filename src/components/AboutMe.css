@@ -1,0 +1,478 @@
+.about-me {
+  padding-top: 140px;
+  padding-bottom: 160px;
+  min-height: 100vh;
+}
+
+.about-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+/* Hero Section */
+.hero-section {
+  margin-bottom: 160px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 0;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.hero-title {
+  font-size: clamp(48px, 8vw, 96px);
+  font-weight: 600;
+  line-height: 1.1;
+  margin-bottom: 80px;
+  letter-spacing: -2px;
+  color: #000;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out 0.2s forwards;
+}
+
+.hero-name {
+  display: inline-block;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.hero-name::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #000 0%, #333 50%, #666 100%);
+  opacity: 0.4;
+}
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s ease-out 0.4s forwards;
+}
+
+.hero-line {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 24px;
+  color: #000;
+  max-width: 700px;
+}
+
+.hero-line .underline {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-line .underline::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #000;
+  opacity: 0.4;
+}
+
+/* Regular Subsections */
+.about-subsection {
+  margin-bottom: 140px;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  border: none;
+}
+
+.about-subsection:not(.hero-section) {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.about-subsection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-subsection:not(.hero-section):not(.connected-subsection) {
+  padding-bottom: 0;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.subsection-content {
+  margin-bottom: 0;
+}
+
+.about-subsection:not(.hero-section):not(.connected-subsection) .subsection-content {
+  margin-bottom: 60px;
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.12);
+  margin: 60px 0;
+}
+
+/* Connected Section (Apple/Platoon) */
+.connected-section {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.connection-line {
+  position: absolute;
+  left: 28px; /* Center of 56px icon */
+  top: 28px; /* Will be updated dynamically */
+  width: 1px;
+  height: 0;
+  background: rgba(0, 0, 0, 0.12);
+  z-index: 0;
+  transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1), top 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, visibility 0s;
+  transform-origin: top;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.connection-line-first {
+  /* First segment: Head of Product → Product Lead */
+}
+
+.connection-line-second {
+  /* Second segment: Product Lead → Founding PM */
+}
+
+.connected-subsection {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 80px !important; /* Closer spacing */
+  padding-bottom: 0 !important; /* Remove padding */
+  border-bottom: none !important; /* Remove divider */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.connected-subsection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.connected-subsection:last-child {
+  margin-bottom: 0 !important;
+}
+
+.connected-subsection:last-child .subsection-content {
+  margin-bottom: 60px !important;
+}
+
+.subsection-header {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 32px;
+  align-items: flex-start;
+  position: relative;
+}
+
+.subsection-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative;
+  /* Align icon center with title first line center */
+  /* Title: 48px font * 1.2 line-height = 57.6px, center at 28.8px */
+  /* Icon: 56px height, center at 28px */
+  /* margin-top = 28.8px - 28px = 0.8px ≈ 1px */
+  margin-top: 1px;
+}
+
+.subsection-icon-image {
+  opacity: 1;
+}
+
+.subsection-icon-image img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+}
+
+.about-subsection:hover .subsection-icon:not(.subsection-icon-image) {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.subsection-title-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.subsection-title {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 500;
+  margin-bottom: 8px;
+  margin-top: 0;
+  letter-spacing: -1px;
+  color: #000;
+  line-height: 1.2;
+}
+
+.subsection-subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: #555;
+  margin-bottom: 8px;
+  font-style: italic;
+  letter-spacing: 0.3px;
+}
+
+.subsection-date {
+  font-size: 14px;
+  font-weight: 400;
+  color: #999;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.subsection-content {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.9;
+  color: #1a1a1a;
+  max-width: 700px;
+}
+
+.intro-text {
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: #000;
+}
+
+.intro-body {
+  margin-bottom: 40px;
+  color: #333;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.social-icons {
+  display: flex;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.social-icon {
+  color: #000;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.social-icon:hover {
+  opacity: 0.5;
+  transform: translateY(-2px);
+}
+
+.achievement-list {
+  list-style: none;
+  padding: 0;
+  margin-left: 80px; /* Align with title: icon width (56px) + gap (24px) */
+}
+
+.achievement-list li {
+  margin-bottom: 20px;
+  padding-left: 0;
+  position: relative;
+  font-weight: 300;
+  padding-left: 32px;
+}
+
+.achievement-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: #000;
+  font-size: 18px;
+  line-height: 1.9;
+  font-weight: 300;
+  opacity: 0.4;
+}
+
+.project-link {
+  color: #000;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease;
+  padding-bottom: 1px;
+}
+
+.project-link:hover {
+  border-bottom-color: rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-me {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+
+  .about-container {
+    padding: 0 32px;
+  }
+
+  .hero-section {
+    margin-bottom: 100px;
+  }
+
+  .hero-title {
+    margin-bottom: 60px;
+  }
+
+  .about-subsection {
+    margin-bottom: 100px;
+    padding-bottom: 40px;
+  }
+
+  .subsection-header {
+    gap: 20px;
+  }
+
+  .connection-line {
+    left: 24px; /* Center of 48px icon */
+    top: 24px; /* Center of first icon */
+  }
+
+  .subsection-icon {
+    width: 48px;
+    height: 48px;
+    /* Title: 32px font * 1.2 = 38.4px, center at 19.2px. Icon: 48px, center at 24px. margin-top = -4.8px ≈ -5px */
+    margin-top: -5px;
+  }
+
+  .subsection-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .subsection-icon-image img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .achievement-list {
+    margin-left: 68px; /* icon width (48px) + gap (20px) */
+  }
+
+  .subsection-title {
+    font-size: 32px;
+  }
+
+  .subsection-content {
+    font-size: 17px;
+  }
+
+  .hero-line {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-me {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+
+  .about-container {
+    padding: 0 24px;
+  }
+
+  .hero-section {
+    margin-bottom: 80px;
+  }
+
+  .hero-title {
+    margin-bottom: 48px;
+    font-size: 42px;
+  }
+
+  .about-subsection {
+    margin-bottom: 80px;
+    padding-bottom: 32px;
+  }
+
+  .subsection-header {
+    gap: 16px;
+  }
+
+  .connection-line {
+    left: 22px; /* Center of 44px icon */
+    top: 22px; /* Center of first icon */
+  }
+
+  .subsection-icon {
+    width: 44px;
+    height: 44px;
+    /* Title: 28px font * 1.2 = 33.6px, center at 16.8px. Icon: 44px, center at 22px. margin-top = -5.2px ≈ -5px */
+    margin-top: -5px;
+  }
+
+  .subsection-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .subsection-icon-image img {
+    width: 26px;
+    height: 26px;
+  }
+
+  .achievement-list {
+    margin-left: 60px; /* icon width (44px) + gap (16px) */
+  }
+
+  .subsection-title {
+    font-size: 28px;
+  }
+
+  .subsection-date {
+    font-size: 12px;
+  }
+
+  .subsection-content {
+    font-size: 16px;
+  }
+
+  .hero-line {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+}
+
