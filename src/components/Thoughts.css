@@ -1,5 +1,5 @@
 .thoughts {
-  padding: 160px 0;
+  padding: 80px 0 160px 0;
   min-height: 100vh;
   background: #fff;
   border-top: 1px solid rgba(0, 0, 0, 0.06);
@@ -118,7 +118,7 @@
 
 @media (max-width: 768px) {
   .thoughts {
-    padding: 100px 0;
+    padding: 60px 0 100px 0;
   }
 
   .thoughts-container {
@@ -141,7 +141,7 @@
 
 @media (max-width: 480px) {
   .thoughts {
-    padding: 80px 0;
+    padding: 50px 0 80px 0;
   }
 
   .thoughts-container {

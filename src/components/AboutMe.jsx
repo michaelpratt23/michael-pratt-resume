@@ -3,6 +3,9 @@ import './AboutMe.css'
 
 const AboutMe = () => {
   const sectionRef = useRef(null)
+  const waveEmojiRef = useRef(null)
+  const heroSectionRef = useRef(null)
+  const lastWaveTimeRef = useRef(0)
 
   useEffect(() => {
     const observerOptions = {
@@ -154,6 +157,12 @@ const AboutMe = () => {
                     completedSections.add(2) // Mark as completed - line will persist
                     updateLineHeight() // Ensure first line stays visible
                   }, 700) // Delay to let line animation fully complete
+                } else {
+                  // Fallback: if previous section isn't visible yet, show this one anyway after a short delay
+                  setTimeout(() => {
+                    entry.target.classList.add('visible')
+                    completedSections.add(2)
+                  }, 300)
                 }
               }
               // Third section (Founding PM) - second line extends from Product Lead icon (most recent visible)
@@ -169,6 +178,12 @@ const AboutMe = () => {
                     completedSections.add(3) // Mark as completed
                     updateLineHeight() // Ensure both lines stay visible
                   }, 700) // Delay to let line animation fully complete
+                } else {
+                  // Fallback: if previous section isn't visible yet, show this one anyway after a short delay
+                  setTimeout(() => {
+                    entry.target.classList.add('visible')
+                    completedSections.add(3)
+                  }, 300)
                 }
               } else if (completedSections.has(index + 1)) {
                 // Section already completed, just ensure it's visible
@@ -182,7 +197,7 @@ const AboutMe = () => {
               updateLineHeight()
             }
           })
-        }, { root: null, rootMargin: '-10% 0px -10% 0px', threshold: 0.2 })
+        }, { root: null, rootMargin: '-5% 0px -5% 0px', threshold: 0.1 })
         
         sectionObserver.observe(el)
       })
@@ -210,14 +225,79 @@ const AboutMe = () => {
     }
   }, [])
 
+  // Wave animation logic
+  useEffect(() => {
+    const waveEmoji = waveEmojiRef.current
+    const heroSection = heroSectionRef.current
+    
+    if (!waveEmoji || !heroSection) return
+
+    const triggerWave = () => {
+      const now = Date.now()
+      // Check if 1 second has passed since last wave
+      if (now - lastWaveTimeRef.current < 1000) return
+      
+      lastWaveTimeRef.current = now
+      waveEmoji.classList.remove('wave-animate')
+      // Force reflow
+      void waveEmoji.offsetWidth
+      waveEmoji.classList.add('wave-animate')
+    }
+
+    // Wave once on initial load (wait 1 second after page loads)
+    const initialTimeout = setTimeout(() => {
+      triggerWave()
+    }, 1000)
+
+    // Track if section was previously visible to detect scroll-back-into-view
+    let wasVisible = false
+    let isInitialLoad = true
+    
+    // Wave when scrolling back into view (wait 1 second after coming into view)
+    const heroObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !wasVisible) {
+          // Section just came into view
+          wasVisible = true
+          
+          // Skip the initial load (handled by initialTimeout)
+          if (isInitialLoad) {
+            isInitialLoad = false
+            return
+          }
+          
+          // Wait 1 second then wave
+          setTimeout(() => {
+            triggerWave()
+          }, 1000)
+        } else if (!entry.isIntersecting) {
+          // Section left view, reset flag
+          wasVisible = false
+        }
+      })
+    }, {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5
+    })
+    
+    heroObserver.observe(heroSection)
+
+    return () => {
+      clearTimeout(initialTimeout)
+      heroObserver.disconnect()
+    }
+  }, [])
+
   return (
     <section id="about-me" className="about-me" ref={sectionRef}>
       <div className="about-container">
         
         {/* Hero Section */}
-        <div className="about-subsection hero-section">
+        <div className="about-subsection hero-section" ref={heroSectionRef}>
+          <p className="hero-intro"><span className="wave-emoji" ref={waveEmojiRef}>👋</span> Hey there, my name is:</p>
           <h1 className="hero-title">
-            I AM <span className="hero-name">MICHAEL PRATT</span>.
+            <span className="hero-name">MICHAEL PRATT</span>
           </h1>
           <div className="hero-content">
             <p className="hero-line">
@@ -254,7 +334,7 @@ const AboutMe = () => {
             </div>
             <div className="subsection-content">
               <ul className="achievement-list">
-                <li>Scaled product from mid 6-figures to high 9-figure ARR in under 4 years</li>
+                <li>Scaled product from mid 6-figures to high 9-figures ($XXXM ARR) in under 4 years</li>
                 <li>IC + Management Experience — I love to build and help others grow :)</li>
               </ul>
             </div>
@@ -328,7 +408,7 @@ const AboutMe = () => {
         {/* Divider */}
         <div className="section-divider"></div>
 
-        {/* Founder, Investor & Product Advisor @ Top LVL */}
+        {/* Founder, Investor & Product Advisor*/}
         <div className="about-subsection">
           <div className="subsection-header">
             <div className="subsection-icon">
@@ -340,7 +420,7 @@ const AboutMe = () => {
               </svg>
             </div>
             <div className="subsection-title-wrapper">
-              <h2 className="subsection-title">Founder, Investor & Product Advisor @ Top LVL</h2>
+              <h2 className="subsection-title">Founder, Investor & Product Advisor</h2>
               <span className="subsection-date">Apr. 2022 — Present</span>
             </div>
           </div>
@@ -356,7 +436,7 @@ const AboutMe = () => {
         <div className="section-divider"></div>
 
         {/* Hacking / Side Projects */}
-        <div className="about-subsection">
+        <div className="about-subsection hacking-section">
           <div className="subsection-header">
             <div className="subsection-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
